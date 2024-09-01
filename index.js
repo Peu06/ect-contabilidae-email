@@ -26,7 +26,7 @@ app.post('/agendamentos', async (req, res) => {
         await transporter.sendMail({
             from: `"ECT CONTABIL" <${process.env.EMAIL_USER}>`,
             to: process.env.NOTIFICATION_EMAIL, // Email para enviar a notificação
-            subject: 'Novo Agendamento Realizado',
+            subject: 'Nova Mensagem Recebida.',
             text: emailText,
         });
 

@@ -1,24 +1,24 @@
-const { Sequelize, DataTypes } = require('sequelize');
-require('dotenv').config() 
-// Conexão com o banco de dados MySQL
-const sequelize = new Sequelize(process.env.DB_NAME,process.env.DB_LOGIN,process.env.DB_PASS, {
-    host: process.env.DB_HOST,
-    dialect: process.env.DB_TYPE
-});
+const mongoose = require('mongoose');
+require('dotenv').config();
+
+const connectionString = `mongodb+srv://${process.env.DB_LOGIN}:${process.env.DB_PASS}@ect-contabil.vykg1.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority&appName=${process.env.DB_APP_NAME}`;
+
+mongoose.connect(connectionString, { 
+    useNewUrlParser: true, 
+    useUnifiedTopology: true 
+})
+  .then(() => console.log('Conectado ao MongoDB'))
+  .catch(err => console.error('Erro ao conectar ao MongoDB:', err));
+
 
 // Modelo de Agendamento
-const Agendamento = sequelize.define('Agendamento', {
+const AgendamentoSchema = new mongoose.Schema({
     nome: {
-        type: DataTypes.STRING,
-        allowNull: false,
+        type: String,
+        required: true,
     },
 });
 
-// Sincronizar o modelo com o banco de dados
-sequelize.sync().then(() => {
-    console.log('Modelos sincronizados com o banco de dados.');
-}).catch((error) => {
-    console.error('Erro ao sincronizar com o banco de dados:', error);
-});
+const Agendamento = mongoose.model('Agendamento', AgendamentoSchema);
 
-module.exports = { Agendamento, sequelize };
+module.exports = { Agendamento };
