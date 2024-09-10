@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 require('dotenv').config();
 
-const connectionString = `mongodb+srv://${process.env.DB_LOGIN}:${process.env.DB_PASS}@ect-contabil.vykg1.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority&appName=${process.env.DB_APP_NAME}`;
+const connectionString = `mongodb+srv://ectcontabil2024:${process.env.PASSWORD_MONGO}@ect-contabil.vykg1.mongodb.net/?retryWrites=true&w=majority&appName=ect-contabil`;
 
 mongoose.connect(connectionString, { 
     useNewUrlParser: true, 
